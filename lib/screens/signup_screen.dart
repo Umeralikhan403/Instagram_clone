@@ -8,6 +8,11 @@ import 'package:instagram_clone/utils/colors.dart';
 import 'package:instagram_clone/utils/utils.dart';
 import 'package:instagram_clone/widgets/text_field_input.dart';
 
+import '../responsive/mobile_screen_layout.dart';
+import '../responsive/responsive_layout_screen.dart';
+import '../responsive/web_screen_layout.dart';
+import 'login_screen.dart';
+
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
 
@@ -56,6 +61,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
     });
     if (res != 'success') {
       showSnackBar(res, context);
+    } else {
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (context) => const ResponsiveLayout(
+            mobileScreenLayout: MobileScreenLayout(),
+            webScreenLayout: WebScreenLayout(),
+          ),
+        ),
+      );
     }
   }
 
@@ -172,11 +186,18 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     padding: const EdgeInsets.symmetric(vertical: 8),
                     child: const Text("Already have an Account?"),
                   ),
-                  Container(
-                    padding: const EdgeInsets.symmetric(vertical: 8),
-                    child: const Text(
-                      "Login",
-                      style: TextStyle(fontWeight: FontWeight.bold),
+                  GestureDetector(
+                    onTap: () => Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => const LoginScreen(),
+                      ),
+                    ),
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(vertical: 8),
+                      child: const Text(
+                        "Login",
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
                     ),
                   )
                 ],
