@@ -1,6 +1,8 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:instagram_clone/providers/user_providers.dart';
 import 'package:instagram_clone/utils/colors.dart';
+import 'package:instagram_clone/utils/global_variables.dart';
 import 'package:provider/provider.dart';
 import 'package:instagram_clone/models/user.dart' as model;
 
@@ -42,52 +44,46 @@ class _MobileScreenLayoutState extends State<MobileScreenLayout> {
     model.User user = Provider.of<UserProvider>(context).getUser;
     return Scaffold(
       body: PageView(
-        children: const [
-          Text('Home'),
-          Text('Search'),
-          Text('Favorite'),
-          Text('Add'),
-          Text('User'),
-        ],
+        children: homeScreenItems,
         physics: const NeverScrollableScrollPhysics(),
         controller: pageController,
         onPageChanged: onPageChanged,
       ),
-      bottomNavigationBar: BottomNavigationBar(
+      bottomNavigationBar: CupertinoTabBar(
         backgroundColor: mobileBackgroundColor,
         items: [
           BottomNavigationBarItem(
+            label: '',
             icon: Icon(
               Icons.home,
-              semanticLabel: '',
               color: _page == 0 ? primaryColor : secondaryColor,
             ),
           ),
           BottomNavigationBarItem(
+            label: '',
             icon: Icon(
               Icons.search,
-              semanticLabel: '',
               color: _page == 1 ? primaryColor : secondaryColor,
             ),
           ),
           BottomNavigationBarItem(
+            label: '',
             icon: Icon(
               Icons.add_circle,
-              semanticLabel: '',
               color: _page == 2 ? primaryColor : secondaryColor,
             ),
           ),
           BottomNavigationBarItem(
+            label: '',
             icon: Icon(
               Icons.favorite,
-              semanticLabel: '',
               color: _page == 3 ? primaryColor : secondaryColor,
             ),
           ),
           BottomNavigationBarItem(
+            label: '',
             icon: Icon(
               Icons.person,
-              semanticLabel: '',
               color: _page == 4 ? primaryColor : secondaryColor,
             ),
           ),
