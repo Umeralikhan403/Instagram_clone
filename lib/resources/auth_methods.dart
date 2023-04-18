@@ -40,7 +40,6 @@ class AuthMethods {
             .uploadImageToStorage('ProfilePics', file, false);
 
         // add user to database
-
         model.User user = model.User(
             email: email,
             uid: cred.user!.uid,
