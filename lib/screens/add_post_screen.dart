@@ -1,7 +1,6 @@
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:instagram_clone/models/user.dart';
 import 'package:instagram_clone/providers/user_providers.dart';
 import 'package:instagram_clone/resources/firestore_methods.dart';
 import 'package:instagram_clone/utils/colors.dart';
@@ -31,7 +30,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
     try {
       String res = await FirestoreMethods().uploadPost(
         _descriptionController.text,
-        _file!,
+        _file ?? _file!,
         uid,
         username,
         profImage,
@@ -108,7 +107,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final User user = Provider.of<UserProvider>(context).getUser;
+    final UserProvider userProvider = Provider.of<UserProvider>(context);
     return _file == null
         ? Center(
             child: IconButton(
@@ -128,9 +127,9 @@ class _AddPostScreenState extends State<AddPostScreen> {
               actions: [
                 TextButton(
                     onPressed: () => postImage(
-                          user.uid,
-                          user.username,
-                          user.photoUrl,
+                          userProvider.getUser.uid,
+                          userProvider.getUser.username,
+                          userProvider.getUser.photoUrl,
                         ),
                     child: const Text(
                       'Post',
@@ -151,7 +150,8 @@ class _AddPostScreenState extends State<AddPostScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   CircleAvatar(
-                    backgroundImage: NetworkImage(user.photoUrl),
+                    backgroundImage:
+                        NetworkImage(userProvider.getUser.photoUrl),
                   ),
                   SizedBox(
                     width: MediaQuery.of(context).size.width * 0.3,
@@ -171,7 +171,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
                       child: Container(
                         decoration: BoxDecoration(
                           image: DecorationImage(
-                              image: MemoryImage(_file!),
+                              image: MemoryImage(_file ?? _file!),
                               fit: BoxFit.fill,
                               alignment: FractionalOffset.topCenter),
                         ),
