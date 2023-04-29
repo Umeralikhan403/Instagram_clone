@@ -30,7 +30,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
     try {
       String res = await FirestoreMethods().uploadPost(
         _descriptionController.text,
-        _file ?? _file!,
+        _file!,
         uid,
         username,
         profImage,
@@ -75,9 +75,9 @@ class _AddPostScreenState extends State<AddPostScreen> {
                 child: const Text('Choose From Gallery'),
                 onPressed: () async {
                   Navigator.of(context).pop();
-                  Uint8List file = await pickImage(ImageSource.gallery);
+                  Uint8List? file = await pickImage(ImageSource.gallery);
                   setState(() {
-                    _file = file;
+                    _file = file!;
                   });
                 },
               ),
@@ -171,7 +171,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
                       child: Container(
                         decoration: BoxDecoration(
                           image: DecorationImage(
-                              image: MemoryImage(_file ?? _file!),
+                              image: MemoryImage(_file!),
                               fit: BoxFit.fill,
                               alignment: FractionalOffset.topCenter),
                         ),
